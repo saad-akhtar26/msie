@@ -281,34 +281,6 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="components-modal.html">
-              <i class="bi bi-circle"></i><span>Modal</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-      <!-- End Components Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Forms</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="forms-elements.html">
-              <i class="bi bi-circle"></i><span>Form Elements</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-      <!-- End Forms Nav -->
-
-      <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -322,15 +294,6 @@
       </li>
       <!-- End Tables Nav -->
 
-      <li class="nav-heading">Pages</li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
-          <i class="bi bi-person"></i>
-          <span>Profile</span>
-        </a>
-      </li>
-      <!-- End Profile Page Nav -->
     </ul>
 
   </aside>
@@ -403,7 +366,6 @@
                     <td>09/08/2005</td>
                     <td>09/08/2005</td>
                   </tr>
-
                   <tr>
                     <td>
                       <a class="text-primary" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalDialogScrollable">
@@ -454,20 +416,67 @@
 
               <!-- Modal Dialog Scrollable-->
               <div class="modal fade" id="modalDialogScrollable" tabindex="-1">
-                <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">Modal Dialog Scrollable</h5>
+                      <h5 class="modal-title">Edit Equipment</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      Non omnis incidunt qui sed occaecati magni asperiores est mollitia. Soluta at et reprehenderit. Placeat autem numquam et fuga numquam. Tempora in facere consequatur sit dolor ipsum. Consequatur nemo amet incidunt est facilis. Dolorem neque recusandae quo sit molestias sint dignissimos.
-                      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                      This content should appear at the bottom after you scroll.
+                      <!-- General Form Elements -->
+                      <form>
+
+                        <div class="row mb-3">
+                          <label for="inputText" class="col-sm-3 col-form-label">Name</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" value="Unity Pugh">
+                          </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                          <label for="inputNumber" class="col-sm-3 col-form-label">Item ID</label>
+                          <div class="col-sm-9">
+                            <input type="number" class="form-control" value="9958">
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <label class="col-sm-3 col-form-label">Type</label>
+                          <div class="col-sm-9">
+                            <select class="form-select" aria-label="Default select example">
+                              <option value="1" selected>Daily</option>
+                              <option value="2">Weekly</option>
+                              <option value="3">Fortnightly</option>
+                              <option value="4">Monthly</option>
+                              <option value="5">Quarterly</option>
+                              <option value="6">Bi-Annually</option>
+                              <option value="7">Annually</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <label for="inputDate" class="col-sm-3 col-form-label">Start from</label>
+                          <div class="col-sm-9">
+                            <input id="edit-start-date" type="date" class="form-control" value="2005-11-02">
+                          </div>
+                        </div>
+
+                      </form>
+                      <!-- End General Form Elements -->
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
+                      <div class="col-12">
+                        <div class="row">
+                          <div class="col-3 ml-5">
+                            <button type="button" class="btn col-12 btn-danger" onclick="confirm('Are you sure?');">Delete</button>
+                          </div>
+                          <div class="col-6"></div>
+                          <div class="col-3">
+                            <button type="button" class="btn col-12 btn-primary">Update</button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
