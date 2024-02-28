@@ -1,6 +1,2 @@
-Thanks for downloading this template!
-
-Template Name: MSIE
-Template URL: 
+Website Name: MSIE
 Author: Saad Akhtar
-License: 
