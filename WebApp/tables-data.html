@@ -292,15 +292,17 @@
   <main id="main" class="main">
 
     <section class="section">
+
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-12">
 
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Equipments</h5>
 
-              <!-- Table with stripped rows -->
-              <table class="table datatable">
+              <!-- Table with hoverable rows -->
+              <table class="table table-hover table-bordered">
+
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -310,159 +312,82 @@
                     <th data-type="date" data-format="DD/MM/YYYY">Next Date</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <a class="text-primary" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalDialogScrollable">
-                        Unity Pugh
-                      </a>
-                    </td>
-                    <td>9958</td>
-                    <td>Daily</td>
-                    <td>02/11/2005</td>
-                    <td>02/11/2005</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a class="text-primary" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalDialogScrollable">
-                        Theodore Duran
-                      </a>
-                    </td>
-                    <td>8971</td>
-                    <td>Weekly</td>
-                    <td>04/07/1999</td>
-                    <td>04/07/1999</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a class="text-primary" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalDialogScrollable">
-                        Kylie Bishop
-                      </a>
-                    </td>
-                    <td>3147</td>
-                    <td>Fortnightly</td>
-                    <td>09/08/2005</td>
-                    <td>09/08/2005</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a class="text-primary" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalDialogScrollable">
-                        Lorem ipsum
-                      </a>
-                    </td>
-                    <td>9958</td>
-                    <td>Monthly</td>
-                    <td>02/11/2005</td>
-                    <td>02/11/2005</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a class="text-primary" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalDialogScrollable">
-                        dolor sit amet
-                      </a>
-                    </td>
-                    <td>8971</td>
-                    <td>Quarterly</td>
-                    <td>04/07/1999</td>
-                    <td>04/07/1999</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a class="text-primary" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalDialogScrollable">
-                        consectetur adipisicing
-                      </a>
-                    </td>
-                    <td>3147</td>
-                    <td>Bi-Annually</td>
-                    <td>09/08/2005</td>
-                    <td>09/08/2005</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a class="text-primary" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalDialogScrollable">
-                        Officiis, reiciendis!
-                      </a>
-                    </td>
-                    <td>3147</td>
-                    <td>Annually</td>
-                    <td>09/08/2005</td>
-                    <td>09/08/2005</td>
-                  </tr>
+
+                <tbody id="insert-tbody">
                 </tbody>
+
               </table>
-              <!-- End Table with stripped rows -->
+              <!-- End Table with hoverable rows -->
 
-              <!-- Modal Dialog Scrollable-->
-              <div class="modal fade" id="modalDialogScrollable" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Edit Equipment</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+          </div>
+
+          <!-- Modal Dialog Scrollable-->
+          <div class="modal fade" id="modalDialogScrollable" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Edit Equipment</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+
+                    <div class="row mb-3">
+                      <label for="inputText" class="col-sm-3 col-form-label">Name</label>
+                      <div class="col-sm-9">
+                        <input type="text" id="modal-name" class="form-control" value="Unity Pugh">
+                      </div>
                     </div>
-                    <div class="modal-body">
-                      <!-- General Form Elements -->
-                      <form>
-
-                        <div class="row mb-3">
-                          <label for="inputText" class="col-sm-3 col-form-label">Name</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" value="Unity Pugh">
-                          </div>
-                        </div>
-                        
-                        <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-3 col-form-label">Item ID</label>
-                          <div class="col-sm-9">
-                            <input type="number" class="form-control" value="9958">
-                          </div>
-                        </div>
-
-                        <div class="row mb-3">
-                          <label class="col-sm-3 col-form-label">Type</label>
-                          <div class="col-sm-9">
-                            <select class="form-select" aria-label="Default select example">
-                              <option value="1" selected>Daily</option>
-                              <option value="2">Weekly</option>
-                              <option value="3">Fortnightly</option>
-                              <option value="4">Monthly</option>
-                              <option value="5">Quarterly</option>
-                              <option value="6">Bi-Annually</option>
-                              <option value="7">Annually</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div class="row mb-3">
-                          <label for="inputDate" class="col-sm-3 col-form-label">Start from</label>
-                          <div class="col-sm-9">
-                            <input id="edit-start-date" type="date" class="form-control" value="2005-11-02">
-                          </div>
-                        </div>
-
-                      </form>
-                      <!-- End General Form Elements -->
+                    
+                    <div class="row mb-3">
+                      <label for="inputNumber" class="col-sm-3 col-form-label">Item Code</label>
+                      <div class="col-sm-9">
+                        <input type="number" id="modal-code" class="form-control" value="9958">
+                      </div>
                     </div>
-                    <div class="modal-footer">
-                      <div class="col-12">
-                        <div class="row">
-                          <div class="col-3 ml-5">
-                            <button type="button" class="btn col-12 btn-danger">Delete</button>
-                          </div>
-                          <div class="col-6"></div>
-                          <div class="col-3">
-                            <button type="button" class="btn col-12 btn-primary">Update</button>
-                          </div>
-                        </div>
+
+                    <div class="row mb-3">
+                      <label class="col-sm-3 col-form-label">Type</label>
+                      <div class="col-sm-9">
+                        <select class="form-select" id="modal-type" aria-label="Default select example">
+                          <option value="Daily" selected>Daily</option>
+                          <option value="Weekly">Weekly</option>
+                          <option value="Fortnightly">Fortnightly</option>
+                          <option value="Monthly">Monthly</option>
+                          <option value="Quarterly">Quarterly</option>
+                          <option value="Bi-Annually">Bi-Annually</option>
+                          <option value="Annually">Annually</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="inputDate" class="col-sm-3 col-form-label">Start from</label>
+                      <div class="col-sm-9">
+                        <input id="modal-start" type="date" class="form-control" value="2005-11-02">
+                      </div>
+                    </div>
+
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-3 ml-5">
+                        <button type="button" class="btn col-12 btn-danger">Delete</button>
+                      </div>
+                      <div class="col-6"></div>
+                      <div class="col-3">
+                        <button type="button" class="btn col-12 btn-primary">Update</button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- End Modal Dialog Scrollable-->
-
             </div>
           </div>
+          <!-- End Modal Dialog Scrollable-->
 
         </div>
       </div>
@@ -485,6 +410,7 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/myScript.js"></script>
 
 </body>
 
