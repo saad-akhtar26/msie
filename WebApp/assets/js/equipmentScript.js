@@ -1,3 +1,25 @@
+const CURRENT_PACKAGE = 'Gold';
+
+const packages = [
+	{
+		name: 'Basic',
+		limit: 1
+	},
+	{
+		name: 'Silver',
+		limit: 3
+	},
+	{
+		name: 'Gold',
+		limit: 7
+	},
+	{
+		name: 'Unlimited',
+		limit: 50000
+	},
+	
+];
+
 /*****************************************************************************/
 /*******************************	Equipments	******************************/
 /*****************************************************************************/
@@ -90,4 +112,22 @@ const addEquipment = () => {
 	console.log('Update Company code: ', form_code.value);
 	console.log('Update Company type: ', type.value);
 	console.log('Update Company start: ', start.value);
+};
+
+
+/******************************************************************************/
+/***********************	checkEquipmentLimit 	***************************/
+/******************************************************************************/
+const checkEquipmentLimit = () => {
+	const CURRENT_LIMIT = packages.find(pkg => pkg.name === CURRENT_PACKAGE).limit;
+	console.log('current limit: ', CURRENT_LIMIT);
+
+	if (equipments.length === CURRENT_LIMIT){
+		alert('You have reached limit of your Package. Contact Admin to increase package !');
+		
+		const modal = document.querySelector('#modal-add-equipment');
+		const backdrop = document.querySelector('.modal-backdrop');
+		modal.hidden = true;
+		backdrop.hidden = true;
+	}
 };
