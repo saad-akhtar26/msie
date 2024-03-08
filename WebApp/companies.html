@@ -306,7 +306,13 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Companies</h5>
+
+              <div class="row">
+                <h5 class="card-title col-11">Companies</h5>
+                <div class="col-1">
+                  <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#modal-add-company"><b>+ Add</b></button>
+                </div>
+              </div>
 
               <!-- Table with hoverable rows -->
               <table class="table table-hover table-bordered">
@@ -334,8 +340,8 @@
             </div>
           </div>
 
-          <!-- Modal Dialog Scrollable-->
-          <div class="modal fade" id="modal-company" tabindex="-1">
+          <!-- Edit Company Modal-->
+          <div class="modal fade" id="modal-edit-company" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
@@ -344,6 +350,8 @@
                 </div>
                 <div class="modal-body">
                   <form>
+
+                    <input type="hidden" id="modal-company-id">
 
                     <div class="row mb-3">
                       <label class="col-sm-3 col-form-label">Name</label>
@@ -419,11 +427,11 @@
                   <div class="col-12">
                     <div class="row">
                       <div class="col-3 ml-5">
-                        <button type="button" class="btn col-12 btn-danger">Delete</button>
+                        <button type="button" onclick="deleteCompany();" class="btn col-12 btn-danger">Delete</button>
                       </div>
                       <div class="col-6"></div>
                       <div class="col-3">
-                        <button type="button" class="btn col-12 btn-primary">Update</button>
+                        <button type="button" onclick="updateCompany();" class="btn col-12 btn-primary">Update</button>
                       </div>
                     </div>
                   </div>
@@ -431,7 +439,89 @@
               </div>
             </div>
           </div>
-          <!-- End Modal Dialog Scrollable-->
+          <!-- End Edit Company Modal-->
+
+          <!-- Add Company Modal-->
+          <div class="modal fade" id="modal-add-company" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Add a Company</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+
+                    <div class="row mb-3">
+                      <label class="col-sm-3 col-form-label">Name</label>
+                      <div class="col-sm-9">
+                        <input type="text" id="add-company-name" class="form-control">
+                      </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                      <label class="col-sm-3 col-form-label">Owner</label>
+                      <div class="col-sm-9">
+                        <input type="text" id="add-company-owner" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label class="col-sm-3 col-form-label">Industry</label>
+                      <div class="col-sm-9">
+                        <input type="text" id="add-company-industry" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label class="col-sm-3 col-form-label">Registration</label>
+                      <div class="col-sm-9">
+                        <input type="text" id="add-company-registration" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label class="col-sm-3 col-form-label">Package</label>
+                      <div class="col-sm-9">
+                        <select class="form-select" id="add-company-package" aria-label="Default select example">
+                          <option value="Basic">Basic</option>
+                          <option value="Silver">Silver</option>
+                          <option value="Gold">Gold</option>
+                          <option value="Unlimited" selected>Unlimited</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="inputDate" class="col-sm-3 col-form-label">Address</label>
+                      <div class="col-sm-9">
+                        <input type="text" id="add-company-address" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="inputDate" class="col-sm-3 col-form-label">Phone</label>
+                      <div class="col-sm-9">
+                        <input type="tel" id="add-company-phone" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="inputDate" class="col-sm-3 col-form-label">Email</label>
+                      <div class="col-sm-9">
+                        <input type="email" id="add-company-email" class="form-control">
+                      </div>
+                    </div>
+
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" onclick="addCompany();" class="btn btn-primary">Add</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End Add Company Modal-->
 
         </div>
       </div>
@@ -454,7 +544,7 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-  <script src="assets/js/myScript.js"></script>
+  <script src="assets/js/companyScript.js"></script>
 
 </body>
 

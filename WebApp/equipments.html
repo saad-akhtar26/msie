@@ -306,7 +306,13 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Equipments</h5>
+
+              <div class="row">
+                <h5 class="card-title col-11">Equipments</h5>
+                <div class="col-1">
+                  <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#modal-add-equipment"><b>+ Add</b></button>
+                </div>
+              </div>
 
               <!-- Table with hoverable rows -->
               <table class="table table-hover table-bordered">
@@ -330,8 +336,8 @@
             </div>
           </div>
 
-          <!-- Modal Dialog Scrollable-->
-          <div class="modal fade" id="modal-equipment" tabindex="-1">
+          <!-- Edit Equipment Modal-->
+          <div class="modal fade" id="modal-edit-equipment" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
@@ -340,6 +346,8 @@
                 </div>
                 <div class="modal-body">
                   <form>
+
+                    <input type="hidden" id="modal-equipment-id">
 
                     <div class="row mb-3">
                       <label for="inputText" class="col-sm-3 col-form-label">Name</label>
@@ -383,11 +391,11 @@
                   <div class="col-12">
                     <div class="row">
                       <div class="col-3 ml-5">
-                        <button type="button" class="btn col-12 btn-danger">Delete</button>
+                        <button type="button" onclick="deleteEquipment();" class="btn col-12 btn-danger">Delete</button>
                       </div>
                       <div class="col-6"></div>
                       <div class="col-3">
-                        <button type="button" class="btn col-12 btn-primary">Update</button>
+                        <button type="button" onclick="updateEquipment();" class="btn col-12 btn-primary">Update</button>
                       </div>
                     </div>
                   </div>
@@ -395,7 +403,64 @@
               </div>
             </div>
           </div>
-          <!-- End Modal Dialog Scrollable-->
+          <!-- End Edit Equipment Modal-->
+
+          <!-- Add Equipment Modal-->
+          <div class="modal fade" id="modal-add-equipment" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Add an Equipment</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+
+                    <div class="row mb-3">
+                      <label for="inputText" class="col-sm-3 col-form-label">Name</label>
+                      <div class="col-sm-9">
+                        <input type="text" id="add-equipment-name" class="form-control">
+                      </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                      <label for="inputNumber" class="col-sm-3 col-form-label">Item Code</label>
+                      <div class="col-sm-9">
+                        <input type="number" id="add-equipment-code" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label class="col-sm-3 col-form-label">Type</label>
+                      <div class="col-sm-9">
+                        <select class="form-select" id="add-equipment-type" aria-label="Default select example">
+                          <option value="Daily">Daily</option>
+                          <option value="Weekly">Weekly</option>
+                          <option value="Fortnightly">Fortnightly</option>
+                          <option value="Monthly">Monthly</option>
+                          <option value="Quarterly">Quarterly</option>
+                          <option value="Bi-Annually">Bi-Annually</option>
+                          <option value="Annually">Annually</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="inputDate" class="col-sm-3 col-form-label">Start from</label>
+                      <div class="col-sm-9">
+                        <input id="add-equipment-start" type="date" class="form-control">
+                      </div>
+                    </div>
+
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" onclick="addEquipment();" class="btn btn-primary">Add</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End Add Equipment Modal-->
 
         </div>
       </div>
@@ -418,7 +483,7 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-  <script src="assets/js/myScript.js"></script>
+  <script src="assets/js/equipmentScript.js"></script>
 
 </body>
 
