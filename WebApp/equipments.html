@@ -278,10 +278,18 @@
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
+      
       <li class="nav-item">
-        <a class="nav-link" href="tables-data.html">
+        <a class="nav-link" href="equipments.html">
           <i class="bi bi-grid"></i>
           <span>Equipments</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="companies.html">
+          <i class="bi bi-grid"></i>
+          <span>Companies</span>
         </a>
       </li>
       <!-- End Tables Nav -->
@@ -313,7 +321,7 @@
                   </tr>
                 </thead>
 
-                <tbody id="insert-tbody">
+                <tbody id="tbody-equipments">
                 </tbody>
 
               </table>
@@ -323,7 +331,7 @@
           </div>
 
           <!-- Modal Dialog Scrollable-->
-          <div class="modal fade" id="modalDialogScrollable" tabindex="-1">
+          <div class="modal fade" id="modal-equipment" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
@@ -336,21 +344,21 @@
                     <div class="row mb-3">
                       <label for="inputText" class="col-sm-3 col-form-label">Name</label>
                       <div class="col-sm-9">
-                        <input type="text" id="modal-name" class="form-control" value="Unity Pugh">
+                        <input type="text" id="modal-equipment-name" class="form-control" value="Unity Pugh">
                       </div>
                     </div>
                     
                     <div class="row mb-3">
                       <label for="inputNumber" class="col-sm-3 col-form-label">Item Code</label>
                       <div class="col-sm-9">
-                        <input type="number" id="modal-code" class="form-control" value="9958">
+                        <input type="number" id="modal-equipment-code" class="form-control" value="9958">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label class="col-sm-3 col-form-label">Type</label>
                       <div class="col-sm-9">
-                        <select class="form-select" id="modal-type" aria-label="Default select example">
+                        <select class="form-select" id="modal-equipment-type" aria-label="Default select example">
                           <option value="Daily" selected>Daily</option>
                           <option value="Weekly">Weekly</option>
                           <option value="Fortnightly">Fortnightly</option>
@@ -365,7 +373,7 @@
                     <div class="row mb-3">
                       <label for="inputDate" class="col-sm-3 col-form-label">Start from</label>
                       <div class="col-sm-9">
-                        <input id="modal-start" type="date" class="form-control" value="2005-11-02">
+                        <input id="modal-equipment-start" type="date" class="form-control" value="2005-11-02">
                       </div>
                     </div>
 
