@@ -146,49 +146,49 @@
         <div class="row">
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
+            <div class="icon-box" data-bs-toggle="modal" data-bs-target="#modal-manage-company" onclick="openModal('company')">
               <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4><a href="">Manage Company Info</a></h4>
+              <h4>Manage Company Info</h4>
               <p>You can manage the information of your company or factor, such as name, registration number, foundation date & Address.</p>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon-box">
+            <div class="icon-box" data-bs-toggle="modal" data-bs-target="#modal-manage-company" onclick="openModal('representative')">
               <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="">Manage Representative Info</a></h4>
+              <h4>Manage Representative Info</h4>
               <p>You can manage the information of your company's representative. That representative can be the owner, area manager, technical manager, director etc. Manage name, CNIC, joining date & email etc.</p>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon-box">
+            <div class="icon-box" data-bs-toggle="modal" data-bs-target="#modal-manage-company" onclick="openModal('industry')">
               <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4><a href="">Specify the Industry</a></h4>
+              <h4>Specify the Industry</h4>
               <p>We have a list of common industries. You can specify which industry are you working in.</p>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
+            <div class="icon-box" data-bs-toggle="modal" data-bs-target="#modal-manage-company" onclick="openModal('package')">
               <div class="icon"><i class="bx bx-world"></i></div>
-              <h4><a href="">Manage Packages</a></h4>
+              <h4>Manage Packages</h4>
               <p>We have different pricing packages available to choose from. You can change the package of you choice at any time.</p>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon-box">
+            <div class="icon-box" data-bs-toggle="modal" data-bs-target="#modal-manage-company" onclick="openModal('equipment')">
               <div class="icon"><i class="bx bx-slideshow"></i></div>
-              <h4><a href="">Manage Equipments</a></h4>
+              <h4>Manage Equipments</h4>
               <p>You can manage (add, edit, list, delete) your equipments within the package range.</p>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon-box">
+            <div class="icon-box" data-bs-toggle="modal" data-bs-target="#modal-manage-company" onclick="openModal('shedule')">
               <div class="icon"><i class="bx bx-arch"></i></div>
-              <h4><a href="">Set Shedule</a></h4>
+              <h4>Set Shedule</h4>
               <p>You can set shedules of your equipments. Set it for maintenance every weekend, once in a month, either quarterly, twice a year, or once every year.</p>
             </div>
           </div>
@@ -511,6 +511,24 @@
   </footer>
   <!-- End Footer -->
 
+  <!-- Manage Company Modal-->
+  <div class="modal fade" id="modal-manage-company" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-landing-heading"></h5>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <p id="modal-landing-paragraph"></p>
+            <img alt="" id="modal-landing-img">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Manage Company Modal-->
+
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -526,6 +544,7 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/landingScript.js"></script>
 
 </body>
 
