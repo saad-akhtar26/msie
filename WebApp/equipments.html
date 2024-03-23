@@ -37,7 +37,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="../LandingSite/index.html" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">MSIE</span>
       </a>
@@ -180,10 +180,45 @@
           <div class="card">
             <div class="card-body">
 
+              <h5 class="card-title">ABC Company</h5>
+
+              <!-- Table with hoverable rows -->
+              <table class="table">
+
+                <tbody>
+                  <tr>
+                    <td><b>Industry:</b></td>
+                    <td>Automobiles</td>
+                    <td><b>Total Equipments:</b></td>
+                    <td>7</td>
+                  </tr>
+                  <tr>
+                    <td><b>Phone:</b></td>
+                    <td>(064) 246353829</td>
+                    <td><b>Registration Number:</b></td>
+                    <td>146SGDV90-L3</td>
+                  </tr>
+                  <tr>
+                    <td><b>Email:</b></td>
+                    <td>abc@company.com</td>
+                    <td><b>Address:</b></td>
+                    <td>Abdul Auto Industry, Zia Road, Layyiah, Punjab</td>
+                  </tr>
+                </tbody>
+
+              </table>
+              <!-- End Table with hoverable rows -->
+
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+
               <div class="row">
                 <h5 class="card-title col-11">Equipments</h5>
                 <div class="col-1">
-                  <button type="button" class="btn btn-primary mt-3" onclick="checkEquipmentLimit();" data-bs-toggle="modal" data-bs-target="#modal-add-equipment"><b>+ Add</b></button>
+                  <button type="button" class="btn btn-primary mt-3 p-2" onclick="checkEquipmentLimit();" data-bs-toggle="modal" data-bs-target="#modal-add-equipment"><b>+ Add</b></button>
                 </div>
               </div>
 
@@ -192,6 +227,7 @@
 
                 <thead>
                   <tr>
+                    <th>Edit</th>
                     <th>Name</th>
                     <th>Item ID</th>
                     <th>Type</th>

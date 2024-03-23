@@ -15,17 +15,16 @@ if(tbody_companies){
 			<tr>
 				<td>
 					<a class="text-primary" onClick="clickEditCompany(${company[0]});" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modal-edit-company">
-						${company[1]}
+						<i class="bi bi-pencil-square"></i>
 					</a>
 				</td>
+				<td>${company[1]}</td>
 				<td>${company[2]}</td>
 				<td>${company[3]}</td>
-				<td>${company[4]}</td>
 				<td>${company[5]}</td>
 				<td>${company[6]}</td>
 				<td>${company[7]}</td>
 				<td>${company[8]}</td>
-				<td>${company[9]}</td>
 			</tr>`;
 	});
 }

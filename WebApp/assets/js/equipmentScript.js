@@ -41,9 +41,10 @@ if(tbody_equipments){
 			<tr>
 				<td>
 					<a class="text-primary" onClick="clickEditEquipment(${equipment[0]});" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modal-edit-equipment">
-						${equipment[1]}
+						<i class="bi bi-pencil-square"></i>
 					</a>
 				</td>
+				<td>${equipment[1]}</td>
 				<td>${equipment[2]}</td>
 				<td>${equipment[3]}</td>
 				<td>${equipment[4]}</td>
