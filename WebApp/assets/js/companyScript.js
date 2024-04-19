@@ -1,32 +1,40 @@
 
+let web_origin = '';
+let base_url = 'http://localhost:5000/api';
+let companies;
+
+if(window.location.protocol === 'file:'){
+	web_origin = 'file:///home/saadakhtar/Desktop/msie/LandingSite'
+}
+else if(window.location.protocol === 'https:'){
+	web_origin = 'https://saad-akhtar26.github.io/msie/LandingSite';
+}
+
 /*************************************************************************/
 /***************************	Table Render	**************************/
 /*************************************************************************/
-const tbody_companies = document.querySelector('#tbody-companies');
+const renderCompanies = () => {
+	const tbody_companies = document.querySelector('#tbody-companies');
 
-const companies = [
-	[1, 'Lorem ipsum', 'dolor sit', 'Automotive', 'IWDW873H8U-23F', 12, 'Unlimited', 'consectetur adipisicing.', '03381735144', 'abc123@gmail.com'],
-	[2, 'Tempore impedit', 'natus similique', 'Fireworks', 'NSYE153H8D-93B', 4, 'Gold', 'aperiam quos magni.', '03312968109', 'xyz456@hotmail.com'],
-];
-
-if(tbody_companies){
-	companies.forEach(company => {
-		tbody_companies.innerHTML += `
-			<tr>
-				<td>
-					<a class="text-primary" onClick="clickEditCompany(${company[0]});" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modal-edit-company">
-						<i class="bi bi-pencil-square"></i>
-					</a>
-				</td>
-				<td>${company[1]}</td>
-				<td>${company[2]}</td>
-				<td>${company[3]}</td>
-				<td>${company[5]}</td>
-				<td>${company[6]}</td>
-				<td>${company[7]}</td>
-				<td>${company[8]}</td>
-			</tr>`;
-	});
+	if(tbody_companies){
+		companies.forEach(company => {
+			tbody_companies.innerHTML += `
+				<tr>
+					<td>
+						<a class="text-primary" onClick="clickEditCompany('${company[0]}');" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modal-edit-company">
+							<i class="bi bi-pencil-square"></i>
+						</a>
+					</td>
+					<td>${company[1]}</td>
+					<td>${company[2]}</td>
+					<td>${company[3]}</td>
+					<td>${company[5]}</td>
+					<td>${company[6]}</td>
+					<td>${company[7]}</td>
+					<td>${company[8]}</td>
+				</tr>`;
+		});
+	}
 }
 
 
@@ -103,3 +111,89 @@ const addCompany = () => {
 	console.log('phone: ', phone.value);
 	console.log('email: ', email.value);
 };
+
+/*************************************************************************/
+/*******************************	Logout  ******************************/
+/*************************************************************************/
+const logout = () => {
+	setCookie('token', undefined, '-1');
+	sessionStorage.clear();
+	window.location.assign(web_origin+'/pages-login.html');
+}
+
+const setCookie = function (cname, cvalue, exdays) {
+	const d = new Date();
+	d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+
+	const expires = 'expires=' + d.toUTCString();
+	document.cookie = `${cname}=${cvalue};${expires};path=/`;
+};
+
+const getCookie = function (cname) {
+	const ca = document.cookie.split(';');
+
+	const token = ca.find((c) => {
+		return c.replace(' ', '').split('=')[0] === cname;
+	});
+
+	if (!token) {
+		return '';
+	}
+
+	return token.split('=')[1];
+};
+
+/*************************************************************************/
+/***********************	Loading Admin Data  ************************/
+/*************************************************************************/
+const loadingAdminDashboard = async () => {
+	if(!getCookie('token') || getCookie('token') == ''){
+		alert('Login again');
+		logout();
+	}
+	else{
+		// Run Fetch call to users/ endpoint
+		const response = await sendRequest(getCookie('token'));
+		const data = await response.json();
+		
+		if(response.status === 401){
+			alert(data.message);
+		}
+		else{
+			const format = data.map(item => {
+				return [
+					item.companies[0]._id, 
+					item.companies[0].company_name, 
+					item.name, 
+					item.companies[0].industry,
+					item.companies[0].reg_num,
+					item.companies[0].total_equipments,
+					item.companies[0].package_name,
+					item.companies[0].address,
+					item.companies[0].phone,
+					item.email,
+				];
+			});
+			companies = format;
+			renderCompanies();
+		}
+	}
+};
+
+const sendRequest = async (token) => {
+	const response = await fetch(
+		base_url+'/users/',
+		{
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': 'Bearer '+token,
+			},
+		}
+	);
+
+	return response;
+}
+
+loadingAdminDashboard();
+

@@ -90,20 +90,11 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <!-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> -->
-            <span class="d-none d-md-block dropdown-toggle ps-2">ABC Company</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2" id="header-company-name"></span>
           </a>
           <!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            
-            <!-- <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li> -->
 
             <li>
               <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
@@ -111,32 +102,13 @@
                 <span>Company Profile</span>
               </a>
             </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <!-- <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
+            
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li> -->
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="../LandingSite/pages-login.html">
+              <a class="dropdown-item d-flex align-items-center" onclick="logout();">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -180,7 +152,7 @@
           <div class="card">
             <div class="card-body">
 
-              <h5 class="card-title">ABC Company</h5>
+              <h5 class="card-title" id="main-company-name"></h5>
 
               <!-- Table with hoverable rows -->
               <table class="table">
@@ -188,21 +160,21 @@
                 <tbody>
                   <tr>
                     <td><b>Industry:</b></td>
-                    <td>Automobiles</td>
+                    <td id="main-industry"></td>
                     <td><b>Total Equipments:</b></td>
-                    <td>7</td>
+                    <td id="main-total-equipments"></td>
                   </tr>
                   <tr>
                     <td><b>Phone:</b></td>
-                    <td>(064) 246353829</td>
+                    <td id="main-phone"></td>
                     <td><b>Registration Number:</b></td>
-                    <td>146SGDV90-L3</td>
+                    <td id="main-reg-num"></td>
                   </tr>
                   <tr>
                     <td><b>Email:</b></td>
-                    <td>abc@company.com</td>
+                    <td id="main-email"></td>
                     <td><b>Address:</b></td>
-                    <td>Abdul Auto Industry, Zia Road, Layyiah, Punjab</td>
+                    <td id="main-address"></td>
                   </tr>
                 </tbody>
 
