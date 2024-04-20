@@ -14,8 +14,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(crossOriginResource);
 
-app.use('/api/goals', require('./routes/goalRoutes'));
+app.use('/api/companies', require('./routes/companyRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/equipments', require('./routes/equipmentRoutes'));
 
 app.use(errorHandler);
 

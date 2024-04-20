@@ -8,17 +8,16 @@ const equipmentSchema = mongoose.Schema(
       ref: 'User',
     },
     item_id: {
-      type: String,
-      required: [true, 'Please specify a company name'],
+      type: Number,
+      required: [true, 'Please specify an item id'],
     },
     equip_name: {
       type: String,
-      required: [true, 'Please specify an industry'],
+      required: [true, 'Please specify a name'],
     },
     repeat_type: {
-      type: Number,
-      required: [true, 'Please specify total equipments'],
-      default: 0
+      type: String,
+      required: [true, 'Please specify repeat type'],
     },
     added_on: {
       type: Date,
@@ -34,4 +33,4 @@ const equipmentSchema = mongoose.Schema(
   }
 )
 
-module.exports = mongoose.model('Equipment', equipmentSchema)
+module.exports = mongoose.model('Equipments', equipmentSchema)

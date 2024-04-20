@@ -3,6 +3,26 @@ let web_origin = '';
 let base_url = 'http://localhost:5000/api';
 let companies;
 
+const packages = [
+	{
+		name: 'Basic',
+		limit: 1
+	},
+	{
+		name: 'Silver',
+		limit: 3
+	},
+	{
+		name: 'Gold',
+		limit: 7
+	},
+	{
+		name: 'Unlimited',
+		limit: 50000
+	},
+	
+];
+
 if(window.location.protocol === 'file:'){
 	web_origin = 'file:///home/saadakhtar/Desktop/msie/LandingSite'
 }
@@ -71,46 +91,126 @@ const clickEditCompany = (id) => {
 /*************************************************************************/
 /***************************	deleteCompany  ***************************/
 /*************************************************************************/
-const deleteCompany = () => {
+const deleteCompany = async () => {
 	const id = document.querySelector('#modal-company-id');
-	console.log('Delete Company ID: ', id.value);
+
+	const response = await sendDelRequest(getCookie('token'), id.value);
+	const data = await response.json();
+		
+	if(response.status === 401 || response.status === 400){
+		alert(data.message);
+	}
+	else if(response.status === 200){
+		alert(data.message);
+		location.reload()
+	}
 };
 
 
 /*************************************************************************/
 /***************************	updateCompany  ***************************/
 /*************************************************************************/
-const updateCompany = () => {
-	const id = document.querySelector('#modal-company-id');
+const updateCompany = async () => {
+	const user_id = document.querySelector('#modal-company-id');
 	const package = document.querySelector('#modal-company-package');
+	const limit = packages.find(pkg => pkg.name === package.value).limit;
 
-	console.log('Update Company id: ', id.value);
-	console.log('Update Company package: ', package.value);
+	const response = await sendPkgRequest(getCookie('token'), user_id.value, package.value, limit);
+	const data = await response.json();
+	
+	if(response.status === 400 || response.status === 401){
+		alert(data.message);
+	}
+	else if(response.status === 200){
+		alert(data.message);
+		window.location.reload();
+	}
 };
 
+const sendPkgRequest = async (token, user_id, package_name, limit) => {
+	const response = await fetch(
+		base_url+'/companies/?user_id='+user_id,
+		{
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': 'Bearer '+token,
+			},
+			body: JSON.stringify({
+				package_name,
+				limit
+			}),
+		}
+	);
+
+	return response;
+}
 
 /*************************************************************************/
 /***************************	addCompany  ******************************/
 /*************************************************************************/
-const addCompany = () => {
-	const name = document.querySelector('#add-company-name');
-	const owner = document.querySelector('#add-company-owner');
+const addCompany = async () => {
+	const company_name = document.querySelector('#add-company-name');
+	const owner_name = document.querySelector('#add-company-owner');
 	const industry = document.querySelector('#add-company-industry');
-	const registration = document.querySelector('#add-company-registration');
+	const reg_num = document.querySelector('#add-company-registration');
 	const package = document.querySelector('#add-company-package');
 	const address = document.querySelector('#add-company-address');
 	const phone = document.querySelector('#add-company-phone');
 	const email = document.querySelector('#add-company-email');
+	const password = document.querySelector('#add-company-password');
+	const limit = packages.find(pkg => pkg.name === package.value).limit;
 
-	console.log('name: ', name.value);
-	console.log('owner: ', owner.value);
-	console.log('industry: ', industry.value);
-	console.log('registration: ', registration.value);
-	console.log('package: ', package.value);
-	console.log('address: ', address.value);
-	console.log('phone: ', phone.value);
-	console.log('email: ', email.value);
+	const response = await sendCompanyAddRequest(
+		getCookie('token'), 
+		company_name.value,
+		owner_name.value,
+		industry.value,
+		reg_num.value,
+		address.value,
+		phone.value,
+		email.value,
+		password.value,
+		package.value,
+		limit,
+	);
+	const data = await response.json();
+	
+	if(response.status === 400 || response.status === 401){
+		alert(data.message);
+	}
+	else if(response.status === 200 || response.status === 201){
+		alert(data.message);
+		window.location.reload();
+	}
 };
+
+const sendCompanyAddRequest = async (token, company_name, owner_name, industry, reg_num, address, phone, email, password, package, limit) => {
+	const response = await fetch(
+		base_url+'/users/',
+		{
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': 'Bearer '+token,
+			},
+			body: JSON.stringify({
+				company_name, 
+				owner_name, 
+				industry, 
+				reg_num, 
+				address, 
+				phone, 
+				email, 
+				password, 
+				package,
+				limit
+			}),
+		}
+	);
+
+	return response;
+}
 
 /*************************************************************************/
 /*******************************	Logout  ******************************/
@@ -153,7 +253,7 @@ const loadingAdminDashboard = async () => {
 	}
 	else{
 		// Run Fetch call to users/ endpoint
-		const response = await sendRequest(getCookie('token'));
+		const response = await sendDataRequest(getCookie('token'));
 		const data = await response.json();
 		
 		if(response.status === 401){
@@ -162,12 +262,12 @@ const loadingAdminDashboard = async () => {
 		else{
 			const format = data.map(item => {
 				return [
-					item.companies[0]._id, 
+					item._id, 
 					item.companies[0].company_name, 
 					item.name, 
 					item.companies[0].industry,
 					item.companies[0].reg_num,
-					item.companies[0].total_equipments,
+					item.equipments.length,
 					item.companies[0].package_name,
 					item.companies[0].address,
 					item.companies[0].phone,
@@ -180,11 +280,26 @@ const loadingAdminDashboard = async () => {
 	}
 };
 
-const sendRequest = async (token) => {
+const sendDataRequest = async (token) => {
 	const response = await fetch(
 		base_url+'/users/',
 		{
 			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': 'Bearer '+token,
+			},
+		}
+	);
+
+	return response;
+}
+
+const sendDelRequest = async (token, id) => {
+	const response = await fetch(
+		base_url+'/companies/'+id+'/',
+		{
+			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
 				'Authorization': 'Bearer '+token,

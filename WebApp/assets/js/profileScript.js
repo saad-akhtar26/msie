@@ -1,4 +1,6 @@
 
+let base_url = 'http://localhost:5000/api';
+
 /*************************************************************************/
 /*******************************	Logout  ******************************/
 /*************************************************************************/
@@ -8,25 +10,51 @@ const logout = () => {
 	window.location.assign(web_origin+'/pages-login.html');
 }
 
-const changePass = () => {
+const changePass = async () => {
 	const oldPass = document.querySelector('#currentPassword');
 	const newPass = document.querySelector('#newPassword');
 	const confirmPass = document.querySelector('#renewPassword');
 
 	if(newPass.value !== confirmPass.value){
 		alert('Passwords do NOT match. Try Again !');
-		return;
+	}
+	else{
+		// Run Fetch call to /me endpoint
+		const response = await sendRequest(getCookie('token'), oldPass.value, newPass.value);
+		const data = await response.json();
+		
+		if(response.status === 400){
+			alert(data.message);
+		}
+		else if(response.status === 200){
+			alert(data.message);
+			window.location.reload();
+		}
 	}
 
-	if(oldPass.value !== 'P@$$w0rd'){
-		alert('Invalid current Password. Try Again !');
-		return;
-	}
-
-	console.log('oldPass: ', oldPass.value);
-	console.log('newPass: ', newPass.value);
-	console.log('confirmPass: ', confirmPass.value);
+	oldPass.value = '';
+	newPass.value = '';
+	confirmPass.value = '';
 };
+
+const sendRequest = async (token, oldPass, newPass) => {
+	const response = await fetch(
+		base_url+'/users/changepass/',
+		{
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': 'Bearer '+token,
+			},
+			body: JSON.stringify({
+				oldPass,
+				newPass
+			})
+		}
+	);
+
+	return response;
+}
 
 const getCookie = function (cname) {
 	const ca = document.cookie.split(';');

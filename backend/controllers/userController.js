@@ -2,46 +2,73 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
+const Company = require('../models/companyModel')
 
 // @desc    Register new user
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body
 
-  if (!email || !password) {
-    res.status(400)
-    throw new Error('Please add all fields')
-  }
+	// Check for user
+	if (!req.user) {
+		res.status(401)
+		throw new Error('User not found')
+	}
 
-  // Check if user exists
-  const userExists = await User.findOne({ email })
+	// Make sure the logged in user is admin
+	if (req.user.is_admin === false) {
+		res.status(401)
+		throw new Error('User not authorized')
+	}
 
-  if (userExists) {
-    res.status(400)
-    throw new Error('User already exists')
-  }
+	const { company_name, owner_name, industry, reg_num, address, phone, email, password, package, limit } = req.body
 
-  // Hash password
-  const salt = await bcrypt.genSalt(10)
-  const hashedPassword = await bcrypt.hash(password, salt)
+	if (!company_name || !owner_name || !industry || !reg_num || !address || !phone || !email || !password || !package || !limit) {
+		res.status(400)
+		throw new Error('Please add all fields')
+	}
 
-  // Create user
-  const user = await User.create({
-    email,
-    password: hashedPassword,
-  })
+	// Check if user exists
+	const userExists = await User.findOne({ email })
 
-  if (user) {
-    res.status(201).json({
-      _id: user.id,
-      email: user.email,
-      token: generateToken(user._id),
-    })
-  } else {
-    res.status(400)
-    throw new Error('Invalid user data')
-  }
+	if (userExists) {
+		res.status(400)
+		throw new Error('User already exists')
+	}
+
+	// Hash password
+	const salt = await bcrypt.genSalt(10)
+	const hashedPassword = await bcrypt.hash(password, salt)
+
+	// Create user
+	const user = await User.create({
+		name: owner_name,
+		email,
+		password: hashedPassword,
+	})
+
+	if (user) {
+
+		// Create Company
+		const company = await Company.create({
+			user: user.id,
+			company_name,
+			industry,
+			phone,
+			reg_num,
+			address,
+			package_name: package,
+			limit,
+		});
+
+		if(company){
+			res.status(201).json({ message: 'User Added Successfully' })
+		}
+
+	} else {
+		res.status(400)
+		throw new Error('Invalid user data')
+	}
 })
 
 // @desc    Authenticate a user
@@ -110,6 +137,12 @@ const getList = asyncHandler(async (req, res) => {
 					from: 'companies', 
 					foreignField: 'user', 
 					localField: '_id'
+				})
+				.lookup({
+					as: 'equipments',
+					from: 'equipments',
+					foreignField: 'user',
+					localField: '_id'
 				});
 
 			res.status(200).json(user);
@@ -121,6 +154,37 @@ const getList = asyncHandler(async (req, res) => {
 	else{
 		res.status(401);
 		throw new Error('Not Authorized');
+	}
+})
+
+const changePass = asyncHandler (async (req, res) => {
+	const { oldPass, newPass } = req.body
+
+	// verify oldPass for user.email
+	const user = await User
+		.findOne({ email: req.user.email })
+		.select('password');
+
+	// user exists and old password is valid
+	if (user && (await bcrypt.compare(oldPass, user.password)) === true) {
+		// Hash password
+		const salt = await bcrypt.genSalt(10)
+		const hashedPassword = await bcrypt.hash(newPass, salt)
+		
+		const user = await User
+			.findOneAndUpdate(
+				{ email: req.user.email },
+				{ password: hashedPassword }
+			)
+			.select('-password');
+
+		if(user){
+			res.status(200)
+				.json({ message: 'Password changed successfully' });
+		}
+	} else {
+		res.status(400)
+		throw new Error('Invalid credentials')
 	}
 })
 
@@ -136,4 +200,5 @@ module.exports = {
   loginUser,
   getMe,
   getList,
+  changePass,
 }

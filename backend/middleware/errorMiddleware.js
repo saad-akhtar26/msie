@@ -21,7 +21,7 @@ const crossOriginResource = async (req, res, next) => {
 	res.setHeader('Access-Control-Allow-Credentials', true);
 
 	// Allow Methods
-	res.setHeader("Access-Control-Allow-Methods", ['GET','HEAD','OPTIONS','POST','PUT']);
+	res.setHeader("Access-Control-Allow-Methods", ['GET','HEAD','OPTIONS','POST','PUT', 'PATCH', 'DELETE']);
 
 	// Request headers you wish to allow
 	res.setHeader(

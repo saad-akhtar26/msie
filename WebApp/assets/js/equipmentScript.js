@@ -80,54 +80,128 @@ const clickEditEquipment = (id) => {
 /******************************************************************************/
 /***************************	deleteEquipment		***************************/
 /******************************************************************************/
-const deleteEquipment = () => {
+const deleteEquipment = async () => {
 	const id = document.querySelector('#modal-equipment-id');
-	console.log('Delete Equipment ID: ', id.value);
+
+	const response = await sendDelRequest(getCookie('token'), id.value);
+	const data = await response.json();
+		
+	if(response.status === 401 || response.status === 400){
+		alert(data.message);
+	}
+	else if(response.status === 200){
+		location.reload()
+	}
 };
 
 
 /******************************************************************************/
 /***************************	updateEquipment 	***************************/
 /******************************************************************************/
-const updateEquipment = () => {
-	const id = document.querySelector('#modal-equipment-id');
-	const name = document.querySelector('#modal-equipment-name');
-	const form_code = document.querySelector('#modal-equipment-code');
-	const type = document.querySelector('#modal-equipment-type');
-	const start = document.querySelector('#modal-equipment-start');
+const updateEquipment = async () => {
+	const equip_id = document.querySelector('#modal-equipment-id');
+	const equip_name = document.querySelector('#modal-equipment-name');
+	const item_id = document.querySelector('#modal-equipment-code');
+	const repeat_type = document.querySelector('#modal-equipment-type');
+	const added_on = document.querySelector('#modal-equipment-start');
 
-	console.log('Update Company id: ', id.value);
-	console.log('Update Company name: ', name.value);
-	console.log('Update Company code: ', form_code.value);
-	console.log('Update Company type: ', type.value);
-	console.log('Update Company start: ', start.value);
+	const response = await sendEquipUpdateRequest(
+		getCookie('token'), 
+		equip_id.value, 
+		equip_name.value,
+		item_id.value, 
+		repeat_type.value,
+		added_on.value,
+	);
+	const data = await response.json();
+	
+	if(response.status === 400 || response.status === 401){
+		alert(data.message);
+	}
+	else if(response.status === 200){
+		alert(data.message);
+		window.location.reload();
+	}
 };
 
+const sendEquipUpdateRequest = async (token, equip_id, equip_name, item_id, repeat_type, added_on) => {
+	const response = await fetch(
+		base_url+'/equipments/'+equip_id+'/',
+		{
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': 'Bearer '+token,
+			},
+			body: JSON.stringify({
+				item_id,
+				equip_name,
+				repeat_type,
+				added_on,
+			}),
+		}
+	);
+
+	return response;
+}
 
 /******************************************************************************/
 /***************************	addEquipment 	*******************************/
 /******************************************************************************/
-const addEquipment = () => {
-	const name = document.querySelector('#add-equipment-name');
-	const form_code = document.querySelector('#add-equipment-code');
-	const type = document.querySelector('#add-equipment-type');
-	const start = document.querySelector('#add-equipment-start');
+const addEquipment = async () => {
+	const equip_name = document.querySelector('#add-equipment-name');
+	const item_id = document.querySelector('#add-equipment-code');
+	const repeat_type = document.querySelector('#add-equipment-type');
+	const added_on = document.querySelector('#add-equipment-start');
+	const next_date = added_on.value;
 
-	console.log('Update Company name: ', name.value);
-	console.log('Update Company code: ', form_code.value);
-	console.log('Update Company type: ', type.value);
-	console.log('Update Company start: ', start.value);
+	const response = await sendEquipAddRequest(
+		getCookie('token'), 
+		equip_name.value,
+		item_id.value, 
+		repeat_type.value,
+		added_on.value,
+		next_date,
+	);
+	const data = await response.json();
+	
+	if(response.status === 400 || response.status === 401){
+		alert(data.message);
+	}
+	else if(response.status === 200){
+		window.location.reload();
+	}
 };
 
+const sendEquipAddRequest = async (token, equip_name, item_id, repeat_type, added_on, next_date) => {
+	const response = await fetch(
+		base_url+'/equipments/',
+		{
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': 'Bearer '+token,
+			},
+			body: JSON.stringify({
+				equip_name,
+				item_id,
+				repeat_type,
+				added_on,
+				next_date,
+			}),
+		}
+	);
+
+	return response;
+}
 
 /******************************************************************************/
 /***********************	checkEquipmentLimit 	***************************/
 /******************************************************************************/
 const checkEquipmentLimit = () => {
-	const CURRENT_LIMIT = packages.find(pkg => pkg.name === CURRENT_PACKAGE).limit;
-	console.log('current limit: ', CURRENT_LIMIT);
-
-	if (equipments.length === CURRENT_LIMIT){
+	const limit = sessionStorage.getItem('limit');
+	
+	if (equipments.length >= limit){
 		alert('You have reached limit of your Package. Contact Admin to increase package !');
 		
 		const modal = document.querySelector('#modal-add-equipment');
@@ -178,7 +252,7 @@ const loadingCompanyDashboard = async () => {
 	}
 	else{
 		// Run Fetch call to /me endpoint
-		const response = await sendRequest(getCookie('token'));
+		const response = await sendDataRequest(getCookie('token'));
 		const data = await response.json();
 		
 		if(response.status === 401){
@@ -188,9 +262,9 @@ const loadingCompanyDashboard = async () => {
 			const format = data.equipments.map(item => {
 				return [
 					item._id, 
-					item.name, 
+					item.equip_name, 
 					item.item_id, 
-					item.type, 
+					item.repeat_type, 
 					item.added_on.slice(0, 10), 
 					item.next_date.slice(0, 10)
 				];
@@ -227,18 +301,33 @@ const renderData = (data) => {
 	spanCompanyName.innerHTML = data.companies[0].company_name;
 	mainCompanyName.innerHTML = data.companies[0].company_name;
 	mainIndustry.innerHTML = data.companies[0].industry;
-	mainTotalEquips.innerHTML = data.companies[0].total_equipments;
+	mainTotalEquips.innerHTML = data.equipments.length;
 	mainPhone.innerHTML = data.companies[0].phone;
 	mainRegNum.innerHTML = data.companies[0].reg_num;
 	mainEmail.innerHTML = data.email;
 	mainAddress.innerHTML = data.companies[0].address;
 };
 
-const sendRequest = async (token) => {
+const sendDataRequest = async (token) => {
 	const response = await fetch(
 		base_url+'/users/me/',
 		{
 			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': 'Bearer '+token,
+			},
+		}
+	);
+
+	return response;
+}
+
+const sendDelRequest = async (token, id) => {
+	const response = await fetch(
+		base_url+'/equipments/'+id+'/',
+		{
+			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
 				'Authorization': 'Bearer '+token,
