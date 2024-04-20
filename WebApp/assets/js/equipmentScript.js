@@ -270,8 +270,10 @@ const loadingCompanyDashboard = async () => {
 				];
 			})
 			equipments = format;
+
 			renderEquipments();
 			renderData(data);
+			renderNotifications();
 		}
 	}
 };
@@ -307,6 +309,49 @@ const renderData = (data) => {
 	mainEmail.innerHTML = data.email;
 	mainAddress.innerHTML = data.companies[0].address;
 };
+
+const renderNotifications = async () => {
+	const notifCountOut = document.querySelector('#equips-notif-count-out');
+	const equipsNotifsList = document.querySelector('#equips-notifs-list');
+	
+	const response = await requestGetNotifications(getCookie('token'));
+	const data = await response.json();
+
+	notifCountOut.innerHTML = data.length;
+
+	data.forEach(notif => equipsNotifsList.innerHTML += 
+		`<li><hr class="dropdown-divider"></li>
+		<li class="notification-item">
+			<div>
+				<h4>${notif.text}</h4>
+			</div>
+		</li>`
+	);
+
+	equipsNotifsList.innerHTML +=`
+		<li>
+			<hr class="dropdown-divider">
+		</li>`;
+		/* `<li class="dropdown-footer">
+			<a href="#">Show all notifications</a>
+		</li>`; */
+
+}
+
+const requestGetNotifications = async (token) => {
+	const response = await fetch(
+		base_url+'/notifications',
+		{
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': 'Bearer '+token,
+			},
+		}
+	);
+
+	return response;
+}
 
 const sendDataRequest = async (token) => {
 	const response = await fetch(

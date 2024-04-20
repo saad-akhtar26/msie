@@ -461,6 +461,10 @@ h6 {
   list-style: none;
 }
 
+.header-nav ul li {
+  cursor: not-allowed;
+}
+
 .header-nav>ul {
   margin: 0;
   padding: 0;

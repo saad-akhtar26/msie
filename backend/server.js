@@ -17,6 +17,7 @@ app.use(crossOriginResource);
 app.use('/api/companies', require('./routes/companyRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/equipments', require('./routes/equipmentRoutes'));
+app.use('/api/notifications', require('./routes/notificationRoutes'));
 
 app.use(errorHandler);
 
