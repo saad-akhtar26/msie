@@ -23,6 +23,7 @@ const addEquipment = asyncHandler(async (req, res) => {
 		throw new Error('Please fill all the fields')
 	}
 
+	req.body.next_date = moment(next_date).add(7, 'days').format('YYYY-MM-DD')
 	const newEquipment = await Equipment.create({
 		...req.body,
 		user: req.user.id,

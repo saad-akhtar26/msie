@@ -33,6 +33,6 @@ const notificationSchema = mongoose.Schema(
   },
 )
 
-notificationSchema.index({ date: 1, equip: 1 }, { unique: true });
+notificationSchema.index({ user: 1, equip: 1, date: 1 }, { unique: true });
 
 module.exports = mongoose.model('Notifications', notificationSchema)

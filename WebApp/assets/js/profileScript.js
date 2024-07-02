@@ -1,5 +1,13 @@
 
 let base_url = 'http://localhost:5000/api';
+let web_origin = '';
+
+if(window.location.protocol === 'file:'){
+	web_origin = 'file:///home/saad/Desktop/msie/LandingSite';
+}
+else if(window.location.protocol === 'https:'){
+	web_origin = 'https://saad-akhtar26.github.io/msie/LandingSite';
+}
 
 /*************************************************************************/
 /*******************************	Logout  ******************************/
@@ -27,7 +35,6 @@ const changePass = async () => {
 			alert(data.message);
 		}
 		else if(response.status === 200){
-			alert(data.message);
 			window.location.reload();
 		}
 	}
@@ -55,6 +62,14 @@ const sendRequest = async (token, oldPass, newPass) => {
 
 	return response;
 }
+
+const setCookie = function (cname, cvalue, exdays) {
+	const d = new Date();
+	d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+
+	const expires = 'expires=' + d.toUTCString();
+	document.cookie = `${cname}=${cvalue};${expires};path=/`;
+};
 
 const getCookie = function (cname) {
 	const ca = document.cookie.split(';');

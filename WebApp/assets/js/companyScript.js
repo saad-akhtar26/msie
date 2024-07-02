@@ -24,7 +24,7 @@ const packages = [
 ];
 
 if(window.location.protocol === 'file:'){
-	web_origin = 'file:///home/saadakhtar/Desktop/msie/LandingSite'
+	web_origin = 'file:///home/saad/Desktop/msie/LandingSite'
 }
 else if(window.location.protocol === 'https:'){
 	web_origin = 'https://saad-akhtar26.github.io/msie/LandingSite';
@@ -101,7 +101,6 @@ const deleteCompany = async () => {
 		alert(data.message);
 	}
 	else if(response.status === 200){
-		alert(data.message);
 		location.reload()
 	}
 };
@@ -122,7 +121,6 @@ const updateCompany = async () => {
 		alert(data.message);
 	}
 	else if(response.status === 200){
-		alert(data.message);
 		window.location.reload();
 	}
 };
@@ -180,7 +178,6 @@ const addCompany = async () => {
 		alert(data.message);
 	}
 	else if(response.status === 200 || response.status === 201){
-		alert(data.message);
 		window.location.reload();
 	}
 };

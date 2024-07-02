@@ -4,7 +4,7 @@ let base_url = 'http://localhost:5000/api';
 const CURRENT_PACKAGE = 'Gold';
 
 if(window.location.protocol === 'file:'){
-	web_origin = 'file:///home/saadakhtar/Desktop/msie/LandingSite'
+	web_origin = 'file:///home/saad/Desktop/msie/LandingSite'
 }
 else if(window.location.protocol === 'https:'){
 	web_origin = 'https://saad-akhtar26.github.io/msie/LandingSite';
@@ -119,7 +119,6 @@ const updateEquipment = async () => {
 		alert(data.message);
 	}
 	else if(response.status === 200){
-		alert(data.message);
 		window.location.reload();
 	}
 };

@@ -4,7 +4,7 @@ let base_url = 'http://localhost:5000/api';
 let target = '';
 
 if(window.location.protocol === 'file:'){
-	web_origin = 'file:///home/saadakhtar/Desktop/msie/WebApp';
+	web_origin = 'file:///home/saad/Desktop/msie/WebApp';
 }
 else if(window.location.protocol === 'https:'){
 	web_origin = 'https://saad-akhtar26.github.io/msie/WebApp';
