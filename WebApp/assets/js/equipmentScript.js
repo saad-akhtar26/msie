@@ -4,7 +4,7 @@ let base_url = 'http://localhost:5000/api';
 const CURRENT_PACKAGE = 'Gold';
 
 if(window.location.protocol === 'file:'){
-	web_origin = 'file:///home/saad/Desktop/msie/LandingSite'
+	web_origin = 'file:///home/saadakhtar/Documents/msie/LandingSite'
 }
 else if(window.location.protocol === 'https:'){
 	web_origin = 'https://saad-akhtar26.github.io/msie/LandingSite';
@@ -66,14 +66,14 @@ const clickEditEquipment = (id) => {
 	const name = document.querySelector('#modal-equipment-name');
 	const form_code = document.querySelector('#modal-equipment-code');
 	const type = document.querySelector('#modal-equipment-type');
-	const start = document.querySelector('#modal-equipment-start');
+	// const start = document.querySelector('#modal-equipment-start');
 	const equip = equipments.find(equip => equip[0] === id);
 
 	equipment_id.value = id;
 	name.value = equip[1];
 	form_code.value = equip[2];
 	type.value = equip[3];
-	start.value = equip[4];
+	// start.value = equip[4];
 }
 
 
@@ -103,7 +103,7 @@ const updateEquipment = async () => {
 	const equip_name = document.querySelector('#modal-equipment-name');
 	const item_id = document.querySelector('#modal-equipment-code');
 	const repeat_type = document.querySelector('#modal-equipment-type');
-	const added_on = document.querySelector('#modal-equipment-start');
+	// const added_on = document.querySelector('#modal-equipment-start');
 
 	const response = await sendEquipUpdateRequest(
 		getCookie('token'), 
@@ -111,7 +111,7 @@ const updateEquipment = async () => {
 		equip_name.value,
 		item_id.value, 
 		repeat_type.value,
-		added_on.value,
+		// added_on.value,
 	);
 	const data = await response.json();
 	
@@ -123,7 +123,7 @@ const updateEquipment = async () => {
 	}
 };
 
-const sendEquipUpdateRequest = async (token, equip_id, equip_name, item_id, repeat_type, added_on) => {
+const sendEquipUpdateRequest = async (token, equip_id, equip_name, item_id, repeat_type/* , added_on */) => {
 	const response = await fetch(
 		base_url+'/equipments/'+equip_id+'/',
 		{
@@ -136,7 +136,7 @@ const sendEquipUpdateRequest = async (token, equip_id, equip_name, item_id, repe
 				item_id,
 				equip_name,
 				repeat_type,
-				added_on,
+				// added_on,
 			}),
 		}
 	);
@@ -151,16 +151,16 @@ const addEquipment = async () => {
 	const equip_name = document.querySelector('#add-equipment-name');
 	const item_id = document.querySelector('#add-equipment-code');
 	const repeat_type = document.querySelector('#add-equipment-type');
-	const added_on = document.querySelector('#add-equipment-start');
-	const next_date = added_on.value;
+	// const added_on = document.querySelector('#add-equipment-start');
+	// const next_date = added_on.value;
 
 	const response = await sendEquipAddRequest(
 		getCookie('token'), 
 		equip_name.value,
 		item_id.value, 
 		repeat_type.value,
-		added_on.value,
-		next_date,
+		// added_on.value,
+		// next_date,
 	);
 	const data = await response.json();
 	
@@ -172,7 +172,7 @@ const addEquipment = async () => {
 	}
 };
 
-const sendEquipAddRequest = async (token, equip_name, item_id, repeat_type, added_on, next_date) => {
+const sendEquipAddRequest = async (token, equip_name, item_id, repeat_type, /* added_on, next_date */) => {
 	const response = await fetch(
 		base_url+'/equipments/',
 		{
@@ -185,8 +185,8 @@ const sendEquipAddRequest = async (token, equip_name, item_id, repeat_type, adde
 				equip_name,
 				item_id,
 				repeat_type,
-				added_on,
-				next_date,
+				// added_on,
+				// next_date,
 			}),
 		}
 	);

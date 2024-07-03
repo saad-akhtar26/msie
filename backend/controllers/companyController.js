@@ -3,6 +3,7 @@ const asyncHandler = require('express-async-handler')
 const Company = require('../models/companyModel')
 const Equipment = require('../models/equipmentModel')
 const User = require('../models/userModel')
+const Notification = require('../models/notificationModel')
 
 // @desc    Get companies
 // @route   GET /api/companies
@@ -61,8 +62,9 @@ const changePkg = asyncHandler (async (req, res) => {
 const deleteCompany = asyncHandler(async (req, res) => {
 
 	const company = await Company.deleteOne({ user: req.params.id })
-	const equipments = await Equipment.deleteMany({ user: req.params.id })
-	const user = await User.findByIdAndDelete(req.params.id)
+	await Equipment.deleteMany({ user: req.params.id })
+	await User.findByIdAndDelete(req.params.id)
+	await Notification.deleteMany({ user: req.params.id })
 
   if (!company) {
 		res.status(400)

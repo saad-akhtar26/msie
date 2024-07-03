@@ -24,7 +24,7 @@ const packages = [
 ];
 
 if(window.location.protocol === 'file:'){
-	web_origin = 'file:///home/saad/Desktop/msie/LandingSite'
+	web_origin = 'file:///home/saadakhtar/Documents/msie/LandingSite'
 }
 else if(window.location.protocol === 'https:'){
 	web_origin = 'https://saad-akhtar26.github.io/msie/LandingSite';

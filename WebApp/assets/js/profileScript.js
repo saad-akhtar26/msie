@@ -3,7 +3,7 @@ let base_url = 'http://localhost:5000/api';
 let web_origin = '';
 
 if(window.location.protocol === 'file:'){
-	web_origin = 'file:///home/saad/Desktop/msie/LandingSite';
+	web_origin = 'file:///home/saadakhtar/Documents/msie/LandingSite';
 }
 else if(window.location.protocol === 'https:'){
 	web_origin = 'https://saad-akhtar26.github.io/msie/LandingSite';
@@ -85,6 +85,49 @@ const getCookie = function (cname) {
 	return token.split('=')[1];
 };
 
+const requestGetNotifications = async (token) => {
+	const response = await fetch(
+		base_url+'/notifications',
+		{
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': 'Bearer '+token,
+			},
+		}
+	);
+
+	return response;
+}
+
+const renderNotifications = async () => {
+	const notifCountOut = document.querySelector('#equips-notif-count-out');
+	const equipsNotifsList = document.querySelector('#equips-notifs-list');
+	
+	const response = await requestGetNotifications(getCookie('token'));
+	const data = await response.json();
+
+	notifCountOut.innerHTML = data.length;
+
+	data.forEach(notif => equipsNotifsList.innerHTML += 
+		`<li><hr class="dropdown-divider"></li>
+		<li class="notification-item">
+			<div>
+				<h4>${notif.text}</h4>
+			</div>
+		</li>`
+	);
+
+	equipsNotifsList.innerHTML +=`
+		<li>
+			<hr class="dropdown-divider">
+		</li>`;
+		/* `<li class="dropdown-footer">
+			<a href="#">Show all notifications</a>
+		</li>`; */
+
+}
+
 /*************************************************************************/
 /***********************	Load Company Data 	 *************************/
 /*************************************************************************/
@@ -111,6 +154,8 @@ const renderData = () => {
 		mainRegNum.innerHTML = sessionStorage.getItem('reg_num');
 		mainEmail.innerHTML = sessionStorage.getItem('email');
 		mainAddress.innerHTML = sessionStorage.getItem('address');
+
+		renderNotifications();
 	}
 }
 
