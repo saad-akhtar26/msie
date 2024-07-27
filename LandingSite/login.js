@@ -4,7 +4,7 @@ let base_url = 'http://localhost:5000/api';
 let target = '';
 
 if(window.location.protocol === 'file:'){
-	web_origin = 'file:///home/saadakhtar/Documents/msie/WebApp';
+	web_origin = "file:///D:\msie/WebApp";
 }
 else if(window.location.protocol === 'https:'){
 	web_origin = 'https://saad-akhtar26.github.io/msie/WebApp';
@@ -54,7 +54,9 @@ const setCookie = function (cname, cvalue, exdays) {
 	d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
 
 	const expires = 'expires=' + d.toUTCString();
+	console.log("cookie: ", document.cookie);
 	document.cookie = `${cname}=${cvalue};${expires};path=/`;
+	console.log("cookie: ", document.cookie);
 };
 
 const getCookie = function (cname) {

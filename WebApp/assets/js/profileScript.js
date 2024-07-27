@@ -3,7 +3,7 @@ let base_url = 'http://localhost:5000/api';
 let web_origin = '';
 
 if(window.location.protocol === 'file:'){
-	web_origin = 'file:///home/saadakhtar/Documents/msie/LandingSite';
+	web_origin = 'file:///D:\msie/LandingSite';
 }
 else if(window.location.protocol === 'https:'){
 	web_origin = 'https://saad-akhtar26.github.io/msie/LandingSite';
