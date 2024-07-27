@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler')
 const moment = require('moment')
 const Equipment = require('../models/equipmentModel')
 const Notification = require('../models/notificationModel')
+const Company = require('../models/companyModel')
 
 // @desc    Get equipments
 // @route   GET /api/equipments
@@ -31,6 +32,8 @@ const addEquipment = asyncHandler(async (req, res) => {
 			...req.body,
 			user: req.user.id,
 		})
+
+		await Company.findOneAndUpdate({ user: req.user.id }, { $inc: { total_equipments: 1 } })
 	
 		// if(moment().isSame(req.body.added_on, 'day')) {
 		// Create notification entry in MongoDB notifications collection
@@ -155,6 +158,8 @@ const deleteEquipment = asyncHandler(async (req, res) => {
 			res.status(401)
 			throw new Error('User not authorized')
 		}
+
+		await Company.findOneAndUpdate({ user: req.user.id }, { $inc: { total_equipments: -1 } })
 
 		res.status(200).json({ message: 'Equipment Deleted Successfully' })
 

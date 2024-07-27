@@ -318,9 +318,21 @@ const renderNotifications = async () => {
 
 	notifCountOut.innerHTML = data.length;
 
+	if(data.length > 0) {
+		equipsNotifsList.innerHTML +=
+			`<span 
+				class="bi bi-list-check" 
+				style="font-size: 2rem; float: right; margin-right: 10%; color: #198754; cursor: pointer;"
+				onClick=readAllNotifications();
+			>
+			</span>
+			<li>
+				<hr class="dropdown-divider" style="clear: right;">
+			</li>`
+	}
+
 	data.forEach(notif => equipsNotifsList.innerHTML += 
-		`<li><hr class="dropdown-divider"></li>
-		<li class="notification-item">
+		`<li class="notification-item">
 			<div>
 				<h4>${notif.text}</h4>
 			</div>
@@ -335,6 +347,21 @@ const renderNotifications = async () => {
 			<a href="#">Show all notifications</a>
 		</li>`; */
 
+}
+
+const readAllNotifications = async () => {
+	await fetch(
+		base_url+'/notifications',
+		{
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': 'Bearer '+getCookie('token'),
+			},
+		}
+	);
+
+	window.location.reload();
 }
 
 const requestGetNotifications = async (token) => {

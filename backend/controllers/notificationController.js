@@ -49,6 +49,16 @@ const readNotifications = asyncHandler(async (req, res) => {
 	}
 })
 
+const markAllRead = asyncHandler(async (req, res) => {
+
+	await Notification.updateMany(
+		{ user: req.user.id },
+		{ status: 'READ' }
+	)
+
+	res.status(200).json({ message: 'Notification READ' })
+})
+
 const deleteNotification = asyncHandler(async (req, res) => {
 
 	await Notification.findByIdAndUpdate(
@@ -110,5 +120,6 @@ function calculateNextNotificationDate(lastNotificationDate, repeatType) {
 
 module.exports = {
   readNotifications,
+  markAllRead,
   deleteNotification,
 }

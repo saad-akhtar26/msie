@@ -461,9 +461,9 @@ h6 {
   list-style: none;
 }
 
-.header-nav ul li {
+/* .header-nav ul li {
   cursor: pointer;
-}
+} */
 
 .header-nav>ul {
   margin: 0;
